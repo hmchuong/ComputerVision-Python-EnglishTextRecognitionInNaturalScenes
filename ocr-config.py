@@ -1,6 +1,6 @@
 ﻿{    
      'from_pickle': True, 
-     'pickle_data': 'images-100000-(20, 20)-2016-11-14 16-09-18.927000.pickle',
+     'pickle_data': 'images-100000-(20, 20)-2016-11-25 19-40-11.319000.pickle',
      'folder_labels': 'Dataset/Chars74K/ImageTree', 
      'folder_data': 'Dataset/Chars74K', 
      'verbose': True, 

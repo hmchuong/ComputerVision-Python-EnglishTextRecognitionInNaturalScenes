@@ -25,9 +25,9 @@ if __name__ == '__main__':
             # B4. Huấn luyện lại thêm 1 lần nữa trên toàn bộ tập trên dựa trên mô hình tốt nhất lấy được từ bước 3 và tập dữ liệu 100 000 ảnh bước 2
     #data.generate_best_hog_model()
             # B5. Đánh giá mô hình trên tập train (sau khi hoàn thành các bước trên mới thực hiện bước này từ file pickle
-    #data.evaluate('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-24 23-33-58.042000.pickle')
+    #data.evaluate('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
 
     #Chọn các đối tượng có kí tự
-    maybe_text = test.select_text_among_candidates('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-24 23-33-58.042000.pickle')
+    maybe_text = test.select_text_among_candidates('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
     #Hiển thị kết quả sau khi xác định
     test.plot_to_check(maybe_text, 'Objects Containing Text Detected')
