@@ -147,9 +147,9 @@ class ImageData():
         is_text = model.predict(self.candidates['flattened'])
         
         self.to_be_classified = {
-                                 'fullscale': self.candidates['fullscale'][is_text == '-'],
-                                 'flattened': self.candidates['flattened'][is_text == '-'],
-                                 'coordinates': self.candidates['coordinates'][is_text == '-']
+                                 'fullscale': self.candidates['fullscale'][is_text == '1'],
+                                 'flattened': self.candidates['flattened'][is_text == '1'],
+                                 'coordinates': self.candidates['coordinates'][is_text == '1']
                                  }
 
         print 'Images After Text Detection'
