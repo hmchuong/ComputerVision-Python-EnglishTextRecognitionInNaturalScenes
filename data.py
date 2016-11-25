@@ -153,8 +153,8 @@ class OcrData():
                   {
                     'hog__orientations': [2, 4, 5, 10],
                     'hog__pixels_per_cell': [(2,2), (4,4), (5,5)],
-                    'hog__cells_per_block': [(5,5), ],
-                    'clf__C': [2, 5, 10 ],
+                    'hog__cells_per_block': [(2,2), (4,4), (5,5)],
+                    'clf__C': [0.01, 0.05, 0.1, 0.5, 1, 1.5, 2, 5, 10],
                     },
                 ),
            
