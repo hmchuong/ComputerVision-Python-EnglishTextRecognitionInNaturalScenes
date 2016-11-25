@@ -391,7 +391,7 @@ class OcrData():
 
         text = OcrData('text-config.py')
 
-        text.ocr['target'][:] = -1
+        text.ocr['target'][:] = 1
 
         total = 100000
         seed(10)
