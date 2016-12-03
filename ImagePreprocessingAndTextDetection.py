@@ -139,13 +139,13 @@ class ImageData():
     def select_text_among_candidates(self, model_filename2):
         """
         Với tham số đầu vào là file pickle chứa mô hình (sau khi đã train và đánh giá), hàm này sẽ
-        sử dụng mô hình đó để dự đoán các đối tượng xác định được trong ảnh chứa kí tự hay không 
+        sử dụng mô hình đó để dự đoán các đối tượng xác định được trong ảnh chứa kí tự hay không
         """
         with open(model_filename2, 'rb') as fin:
             model = cPickle.load(fin)
-            
+
         is_text = model.predict(self.candidates['flattened'])
-        
+
         self.to_be_classified = {
                                  'fullscale': self.candidates['fullscale'][is_text == '1'],
                                  'flattened': self.candidates['flattened'][is_text == '1'],
@@ -158,6 +158,19 @@ class ImageData():
         print 'Contour Coordinates: ', self.to_be_classified['coordinates'].shape
         print 'Rectangles Identified as NOT containing Text '+str(self.candidates['coordinates'].shape[0]-self.to_be_classified['coordinates'].shape[0])+' out of '+str(self.candidates['coordinates'].shape[0])
         print '============================================================'
-        
-               
+
+
         return self.to_be_classified
+
+    def classify_text(self, model_filename36):
+        with open(model_filename36,'rb') as fin:
+            model = cPickle.load(fin)
+        which_text = model.predict(self.to_be_classified['flattened'])
+        self.which_text = {
+                                 'fullscale': self.to_be_classified['fullscale'],
+                                 'flattened': self.to_be_classified['flattened'],
+                                 'coordinates': self.to_be_classified['coordinates'],
+                                 'predicted_char': which_text
+                                 }
+
+        return self.which_text

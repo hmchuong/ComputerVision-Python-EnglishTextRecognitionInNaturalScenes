@@ -4,6 +4,12 @@ from data import OcrData
 
 if __name__ == '__main__':
     # 1. IMAGE PREPROCESSING AND OBJECT DETECTION
+        # B1. Tải ảnh cần detect lên để lấy data xử lý sau này
+        # B2. Việc tiền xử lý bao gồm:
+            # + Sử dụng phương pháp total-varition denoising để giảm nhiễu hình ảnh đầu vào
+            # + Sử dụng Otsu's Method để tăng độ tương phản của ảnh nhằm mục đích phục vụ tách các đối tượng riêng lẻ ra
+        # B3. Tách các đối tượng ra thành các hình chữ nhật riêng lẻ kích thước bằng nhau để detect
+        # B4. Vẽ ngẫu nhiên 100 đối tượng đã được detect để kiểm tra
     # Tải ảnh cần detect
     test = ImageData("test.jpg")
     # Biểu diễn việc tiền xử lý ảnh
@@ -28,6 +34,14 @@ if __name__ == '__main__':
     #data.evaluate('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
 
     #Chọn các đối tượng có kí tự
-    maybe_text = test.select_text_among_candidates('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
+    maybe_text = test.select_text_among_candidates('pickle/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
     #Hiển thị kết quả sau khi xác định
     test.plot_to_check(maybe_text, 'Objects Containing Text Detected')
+
+    # 3. TEXT CLASSIFICATION
+    # Phân lớp các ký tự đơn
+    classified = test.classify_text('pickle/linearsvc-hog-fulltrain-2016-11-24 07-37-06.599000.pickle')
+    # Biểu diễn các đối tượng cùng với dự đoán về
+    test.plot_to_check(classified,'Single Character Recognition')
+
+
