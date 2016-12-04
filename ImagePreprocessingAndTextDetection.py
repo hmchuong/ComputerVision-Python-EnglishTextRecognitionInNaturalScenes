@@ -31,7 +31,7 @@ class ImageData():
         self.cleared = self.bw.copy()
         return self.cleared
     # Plot preprocessed image
-    def plot_preprocessed_image(self):
+    def plot_preprocessed_image(self, title):
         # Preprocessed image
         image = restoration.denoise_tv_chambolle(self.image,weight = 0.1)
         thresh = threshold_otsu(image)
@@ -51,6 +51,7 @@ class ImageData():
             minr, minc, maxr, maxc = region.bbox
             rect = mpatches.Rectangle((minc,minr),maxc-minc,maxr - minr,fill=False, edgecolor='red', linewidth=2)
             ax.add_patch(rect)
+        plt.suptitle(title, fontsize=20)
         plt.show()
 
     def get_text_candidates(self):
@@ -174,3 +175,31 @@ class ImageData():
                                  }
 
         return self.which_text
+
+    def reconstruct_text(self, title):
+        """
+        Xử lý các kí tự đã phân lớp được và sắp xếp chúng trên mặt phẳng 2 chiều 
+        theo đúng vị trí kí tự trên bức ảnh
+        """
+        max_maxrow = max(self.which_text['coordinates'][:,2])
+        min_mincol = min(self.which_text['coordinates'][:,1])
+        subtract_max = np.array([max_maxrow, min_mincol, max_maxrow, min_mincol]) 
+        flip_coord = np.array([-1, 1, -1, 1])
+        
+        coordinates = (self.which_text['coordinates'] - subtract_max) * flip_coord
+        
+        ymax = max(coordinates[:,0])
+        xmax = max(coordinates[:,3])
+        
+        coordinates = [list(coordinate) for coordinate in coordinates]
+        predicted = [list(letter) for letter in self.which_text['predicted_char']]
+        to_reconstruct = zip(coordinates, predicted)
+        
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        for char in to_reconstruct:
+            ax.text(char[0][1], char[0][2], char[1][0], size=16)
+        ax.set_ylim(-10,ymax+10)
+        ax.set_xlim(-10,xmax+10)
+        plt.suptitle(title, fontsize=20)
+        plt.show()

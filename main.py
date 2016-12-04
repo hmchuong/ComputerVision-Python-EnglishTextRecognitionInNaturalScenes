@@ -13,17 +13,16 @@ if __name__ == '__main__':
     # Tải ảnh cần detect
     test = ImageData("test.jpg")
     # Biểu diễn việc tiền xử lý ảnh
-    test.plot_preprocessed_image()
+    test.plot_preprocessed_image("Preprocessing Image")
     # Detect các đối tượng trong ảnh đã tiền xử lý
     candidates = test.get_text_candidates()
     # Biển diễn các object đã detect được
-    test.plot_to_check(candidates,'Total Objects Detected')
+    test.plot_to_check(candidates,'1. Total Objects Detected')
 
     # 2. TEXT DETECTION
         # a. Tạo mô hình dự đoán 1 đối tượng là có gồm chữ hay không (chỉ thực hiện bước này 1 lần để tạo file pickle)
             # B1. Nạp tập dữ liệu OCR từ file config
     #data = OcrData('ocr-config.py')
-    #print data.labels
             # B2. Trộn với tập CIFAR, sau khi chạy bước 1 thì chỉnh sửa lại file text-config.py rồi mới chạy tiếp để tiết kiệm thời gian chạy
     #data.merge_with_cifar()
             # B3. Biễn diễn Grid Search Cross Validation để tìm mô hình tốt nhất từ tham số đưa vào
@@ -32,16 +31,23 @@ if __name__ == '__main__':
     #data.generate_best_hog_model()
             # B5. Đánh giá mô hình trên tập train (sau khi hoàn thành các bước trên mới thực hiện bước này từ file pickle
     #data.evaluate('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
-
-    #Chọn các đối tượng có kí tự
-    maybe_text = test.select_text_among_candidates('pickle/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
-    #Hiển thị kết quả sau khi xác định
-    test.plot_to_check(maybe_text, 'Objects Containing Text Detected')
+    	# b. Chạy phân lớp với mô hình đã dựng được
+    		#Chọn các đối tượng có kí tự
+    maybe_text = test.select_text_among_candidates('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-25 19-59-02.933000.pickle')
+    		#Hiển thị kết quả sau khi xác định
+    test.plot_to_check(maybe_text, '2. Objects Containing Text Detected')
 
     # 3. TEXT CLASSIFICATION
-    # Phân lớp các ký tự đơn
-    classified = test.classify_text('pickle/linearsvc-hog-fulltrain-2016-11-24 07-37-06.599000.pickle')
-    # Biểu diễn các đối tượng cùng với dự đoán về
-    test.plot_to_check(classified,'Single Character Recognition')
+    	# a. Tạo mô hình dự đoán kí tự của object có kí tự đã được sàng lọc
+    		# B1. Nạp tập dữ liệu OCR từ file config
+    #data = OcrData('text-config.py')
+    		# B2. Dựng mô hình dựa trên tập data, nhãn và tham số đã đánh giá ở phần 2a
+    #data.generate_best_hog_model()
+    	# b. Chạy phân lớp với mô hình đã dựng được 
+    		# Phân lớp các ký tự đơn
+    classified = test.classify_text('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-24 07-37-06.599000.pickle')
+    		# Biểu diễn các đối tượng cùng với dự đoán về kí tự
+    test.plot_to_check(classified,'3. Single Character Recognition')
 
-
+    # 4. TEXT RECONSTRUCTION
+    test.reconstruct_text("4. Text Reconstruction")
