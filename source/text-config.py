@@ -6,7 +6,7 @@
      'verbose': True, 
      'img_size': (20,20), 
      'limit': -1,
-     'automatic_split': False,
-     'plot_evaluation': False,
-     'percentage_of_test_set': 0
+     'automatic_split': True,
+     'plot_evaluation': True,
+     'percentage_of_test_set': 0.10
 }

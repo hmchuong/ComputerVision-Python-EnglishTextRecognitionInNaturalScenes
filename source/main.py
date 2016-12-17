@@ -25,7 +25,7 @@ if __name__ == '__main__':
     #data = OcrData('ocr-config.py')
             # B2. Trộn với tập CIFAR, sau khi chạy bước 1 thì chỉnh sửa lại file text-config.py rồi mới chạy tiếp để tiết kiệm thời gian chạy
     #data.merge_with_cifar()
-            # B3. Biễn diễn Grid Search Cross Validation để tìm mô hình tốt nhất từ tham số đưa vào
+            # B3. Biễu diễn Grid Search Cross Validation để tìm mô hình tốt nhất từ tham số đưa vào
     #data.perform_grid_search_cv('linearsvc-hog')
             # B4. Huấn luyện lại thêm 1 lần nữa trên toàn bộ tập trên dựa trên mô hình tốt nhất lấy được từ bước 3 và tập dữ liệu 100 000 ảnh bước 2
     #data.generate_best_hog_model()
@@ -41,11 +41,16 @@ if __name__ == '__main__':
     	# a. Tạo mô hình dự đoán kí tự của object có kí tự đã được sàng lọc
     		# B1. Nạp tập dữ liệu OCR từ file config
     #data = OcrData('text-config.py')
-    		# B2. Dựng mô hình dựa trên tập data, nhãn và tham số đã đánh giá ở phần 2a
+            # B2. Biễu diễn Grid Search Cross Validation để tìm mô hình tốt nhất từ tham số đưa vào
+    #data.perform_grid_search_cv('linearsvc-hog')
+    		# B2. Dựng mô hình dựa trên tập data, tham số đã đánh giá ở phần 2a
     #data.generate_best_hog_model()
+            # B3. Đánh giá mô hình
+    #data.evaluate('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-24 07-37-06.599000.pickle')
     	# b. Chạy phân lớp với mô hình đã dựng được 
     		# Phân lớp các ký tự đơn
     classified = test.classify_text('Dataset/Chars74K/linearsvc-hog-fulltrain-2016-11-24 07-37-06.599000.pickle')
+    
     		# Biểu diễn các đối tượng cùng với dự đoán về kí tự
     test.plot_to_check(classified,'3. Single Character Recognition')
 
